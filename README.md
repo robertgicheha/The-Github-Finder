@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+Github Finder App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+App to search Github users and display their info and repositories.
 
-## Available Scripts
+### Bug Fixes, corrections and code FAQ
 
-In the project directory, you can run:
+The repository code here on the main branch has been updated due to bugs and issues found since the app was released.
 
-### `npm start`
+The updates here aim to be a reference and resource for common questions asked
+in the Q&A and for those wishing to make corrections to the
+project.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Q: How do I remove the user stats scroll bars that show on mobile devices
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Code changes for this fix can be seen in [User.jsx](src/pages/User.jsx)
 
-### `npm test`
+#### BUG: I can't see the alert text
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Most likely you have the default light theme provided by DaisyUI. The theme is
+set based on a `prefers-colorscheme` media query, so you may have a light theme
+if you have a light browser theme or OS theme. In which case you won't see the
+text in the alert show.
+Code changes to fix this can be seen in [Alert.jsx](src/components/layout/Alert.jsx)
+The changes here use a [ DaisyUI Alert component ](https://daisyui.com/components/alert/) so will adapt with a change in theme.
+We also now conditionally set the element visibility to **'visible'** or
+**'hidden'** rather than conditionally render, which prevents content shift when
+the alert shows for a smoother UX.
 
-### `npm run build`
+#### Q: Why doesn't Craco work?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You don't need to use craco if you are using react-scripts version 5 or greater.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+When Brad recorded the course react-scripts was at version 4 and didn't support postcss, now react-scripts is at version 5 and does support postcss.
+So just check what version of react-scripts you have...
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    npm list react-scripts
 
-### `npm run eject`
+If it's at version 5 or greater then follow the [ Tailwind version 3 ](https://tailwindcss.com/docs/guides/create-react-app) docs to setup.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### BUG: Linking to users websites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Some users from Github have already prefixed their websites with `http://` or
+`https://` so we need to check in [User.jsx](src/pages/User.jsx) if their
+website url starts with `http` before constructing the external link.
+Code changes can be see in [User.jsx](src/pages/User.jsx#L48)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+Rename **_.env.example_** to **_.env_**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can use the Github API without a personal token, but if you want to use your token, add it to the .env file
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Learn how to create a token [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
-### Code Splitting
+### Install Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+npm install
+```
 
-### Analyzing the Bundle Size
+### Run
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+npm start
+```
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Tailwind UI created by [Hassib Moddasser](https://twitter.com/hassibmoddasser)
