@@ -18,22 +18,44 @@ export const GithubProvider = ({ children }) => {
 
   //Get Initial users for testing purposes
 
-  const fetchUsers = async () => {
+  // const fetchUsers = async () => {
+  //   setLoading();
+
+  //   const response = await fetch(`${GITHUB_URL}/users`, {
+  //     headers: {
+  //       Authorization: `token ${GITHUB_TOKEN}`,
+  //     },
+  //   });
+  //   const data = await response.json();
+  //   // console.log(data);
+  //   // setUsers(data);
+  //   // setLoading(false);
+
+  //   dispatch({
+  //     type: "GET_USERS",
+  //     payload: data,
+  //   });
+  // };
+
+  //Get Search Users
+  const searchUsers = async () => {
     setLoading();
-    
-    const response = await fetch(`${GITHUB_URL}/users`, {
+
+    const params = new URLSearchParams({});
+
+    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
-    const data = await response.json();
+    const {items} = await response.json();
     // console.log(data);
     // setUsers(data);
     // setLoading(false);
 
     dispatch({
       type: "GET_USERS",
-      payload: data,
+      payload: items,
     });
   };
 
@@ -42,7 +64,7 @@ export const GithubProvider = ({ children }) => {
 
   return (
     <GithubContext.Provider
-      value={{ users: state.user, loading: state.loading, fetchUsers }}
+      value={{ users: state.user, loading: state.loading, searchUsers}}
     >
       {children}
     </GithubContext.Provider>
