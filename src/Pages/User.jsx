@@ -5,7 +5,7 @@ import RepoList from "../components/repos/RepoList";
 import { useEffect, useContext } from "react";
 import GithubContext from "../context/github/GithubContext";
 import { useParams } from "react-router-dom";
-import { getUser, getUserRepos } from "../context/github/GithubActions";
+import { getUserAndRepos } from "../context/github/GithubActions";
 
 function User() {
   const { user, loading, repos, dispatch } = useContext(GithubContext);
@@ -15,11 +15,15 @@ function User() {
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
     const getUserData = async () => {
-      const userData = await getUser(params.login);
-      dispatch({ type: "GET_USER", payload: userData });
+      const userData = await getUserAndRepos(params.login);
+      dispatch({ type: "GET_USER_AND_REPOS", payload: userData });
 
-      const userRepoData = await getUserRepos(params.login);
-      dispatch({ type: "GET_REPOS", payload: userRepoData });
+      //Initially they were two
+      // const userData = await getUser(params.login);
+      // dispatch({ type: "GET_USER", payload: userData });
+
+      // const userRepoData = await getUserRepos(params.login);
+      // dispatch({ type: "GET_REPOS", payload: userRepoData });
     };
 
     getUserData();
@@ -50,7 +54,7 @@ function User() {
   return (
     <>
       <div className="w-full mx-auto lg:w-10/12">
-        <div className="mb-4">
+        <div className= "mb-4">
           <Link to="/" className="btn btn-ghost">
             Back To Search
           </Link>
