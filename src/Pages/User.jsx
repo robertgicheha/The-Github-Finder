@@ -7,13 +7,15 @@ import GithubContext from "../context/github/GithubContext";
 import { useParams } from "react-router-dom";
 
 function User() {
-  const { getUser, user, loading, getUserRepos, repos } = useContext(GithubContext);
+  const { getUser, user, loading, getUserRepos, repos } =
+    useContext(GithubContext);
 
   const params = useParams();
 
   useEffect(() => {
     getUser(params.login);
-    getUserRepos(params.login)
+    getUserRepos(params.login);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {
@@ -153,7 +155,7 @@ function User() {
             </div>
           </div>
         </div>
-        <RepoList repos={repos}/>
+        <RepoList repos={repos} />
       </div>
     </>
   );
